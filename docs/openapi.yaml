@@ -3,7 +3,7 @@ info:
   title: MicroLoan API
   version: "1.0"
   description: |
-    This API documents the MicroLoan BNPL solution using Klarna style endpoints.
+    This documentation describes the API endpoints of a fictional MicroLoan BNPL.
     The API allows merchants to create credit sessions and handle payments.
 servers:
   - url: https://api.microloan.example.com
