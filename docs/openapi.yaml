@@ -1,9 +1,9 @@
 openapi: 3.0.3
 info:
-  title: MicroLoan API
+  title: Blip API
   version: "1.0"
   description: |
-    This documentation describes the API endpoints of a fictional MicroLoan BNPL.
+    This documentation describes the API endpoints of a fictional Buy-Now-Pay-Later (BPNL) solution named Blip.
     The API allows merchants to create credit sessions and handle payments.
 servers:
   - url: https://api.microloan.example.com

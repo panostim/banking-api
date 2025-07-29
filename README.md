@@ -1,14 +1,10 @@
 # MicroLoan API Documentation
 
-This repository contains the OpenAPI specification for the fictional **MicroLoan** BNPL (Buy Now Pay Later) solution. The API can be explored using Swagger UI.
-
-## Documentation
-
-The OpenAPI specification can be found at [`docs/openapi.yaml`](docs/openapi.yaml). An HTML page that loads Swagger UI is provided in [`docs/index.html`](docs/index.html).
+This repository contains the OpenAPI specification for the fictional BNPL (Buy Now Pay Later) solution named **Blip**. The API can be explored using Swagger UI.
 
 ### Viewing Online
 
-The documentation is deployed in Vercel and publicly accessible [`here`](https://banking-r19wjogen-panostims-projects.vercel.app/)
+The documentation is deployed in Vercel and publicly accessible in [`https://banking-r19wjogen-panostims-projects.vercel.app/`](https://banking-r19wjogen-panostims-projects.vercel.app/)
 
 ### Viewing in a Browser locally
 
