@@ -1,4 +1,4 @@
-# MicroLoan API Documentation
+# Blip Banking - API Documentation
 
 This repository contains the OpenAPI specification for the fictional BNPL (Buy Now Pay Later) solution named **Blip**. The API can be explored using Swagger UI.
 
