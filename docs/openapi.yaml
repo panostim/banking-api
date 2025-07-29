@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: Blip API
+  title: Blip MicroLoan API
   version: "1.0"
   description: |
     This documentation describes the API endpoints of a fictional Buy-Now-Pay-Later (BPNL) solution named Blip.
