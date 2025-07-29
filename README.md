@@ -4,7 +4,8 @@ This repository contains the OpenAPI specification for the fictional BNPL (Buy N
 
 ### Viewing Online
 
-The documentation is deployed in Vercel and publicly accessible in [`https://banking-r19wjogen-panostims-projects.vercel.app/`](https://banking-r19wjogen-panostims-projects.vercel.app/)
+The documentation is deployed in Vercel and publicly accessible in: 
+[`https://banking-r19wjogen-panostims-projects.vercel.app/`](https://banking-r19wjogen-panostims-projects.vercel.app/)
 
 ### Viewing in a Browser locally
 
