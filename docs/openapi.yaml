@@ -1,0 +1,333 @@
+openapi: 3.0.3
+info:
+  title: MicroLoan API
+  version: "1.0"
+  description: |
+    This API documents the MicroLoan BNPL solution using Klarna style endpoints.
+    The API allows merchants to create credit sessions and handle payments.
+servers:
+  - url: https://api.microloan.example.com
+paths:
+  /credit-sessions:
+    post:
+      summary: Create a credit session
+      operationId: createCreditSession
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreditSessionRequest'
+      responses:
+        '201':
+          description: Credit session created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreditSession'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /credit-sessions/{session_id}:
+    get:
+      summary: Retrieve a credit session
+      operationId: getCreditSession
+      parameters:
+        - name: session_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Credit session details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreditSession'
+        '404':
+          description: Session not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /payments:
+    post:
+      summary: Create a payment
+      operationId: createPayment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentRequest'
+      responses:
+        '201':
+          description: Payment created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Credit session not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /payments/{payment_id}:
+    get:
+      summary: Retrieve a payment
+      operationId: getPayment
+      parameters:
+        - name: payment_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Payment details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+        '404':
+          description: Payment not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /payments/{payment_id}/cancel:
+    post:
+      summary: Cancel a payment
+      operationId: cancelPayment
+      parameters:
+        - name: payment_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Payment canceled
+        '404':
+          description: Payment not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /refunds:
+    post:
+      summary: Create a refund
+      operationId: createRefund
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RefundRequest'
+      responses:
+        '201':
+          description: Refund created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Refund'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Payment not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /refunds/{refund_id}:
+    get:
+      summary: Retrieve a refund
+      operationId: getRefund
+      parameters:
+        - name: refund_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Refund details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Refund'
+        '404':
+          description: Refund not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    CreditSessionRequest:
+      type: object
+      required:
+        - purchase_country
+        - purchase_currency
+        - locale
+        - order_amount
+        - order_lines
+      properties:
+        purchase_country:
+          type: string
+          example: US
+        purchase_currency:
+          type: string
+          example: USD
+        locale:
+          type: string
+          example: en-US
+        order_amount:
+          type: integer
+          description: Amount in minor units
+          example: 15000
+        order_lines:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderLine'
+    CreditSession:
+      allOf:
+        - $ref: '#/components/schemas/CreditSessionRequest'
+        - type: object
+          properties:
+            session_id:
+              type: string
+              example: cs_123456789
+            status:
+              type: string
+              example: pending
+    OrderLine:
+      type: object
+      required:
+        - name
+        - quantity
+        - unit_price
+      properties:
+        name:
+          type: string
+          example: "Winter Jacket"
+        quantity:
+          type: integer
+          example: 1
+        unit_price:
+          type: integer
+          description: Price per unit in minor units
+          example: 15000
+    PaymentRequest:
+      type: object
+      required:
+        - session_id
+        - authorization_token
+      properties:
+        session_id:
+          type: string
+          example: cs_123456789
+        authorization_token:
+          type: string
+          example: auth_987654321
+    Payment:
+      type: object
+      properties:
+        payment_id:
+          type: string
+          example: pay_abcd1234
+        status:
+          type: string
+          example: approved
+        amount:
+          type: integer
+          example: 15000
+    RefundRequest:
+      type: object
+      required:
+        - payment_id
+        - amount
+      properties:
+        payment_id:
+          type: string
+          example: pay_abcd1234
+        amount:
+          type: integer
+          example: 5000
+    Refund:
+      allOf:
+        - $ref: '#/components/schemas/RefundRequest'
+        - type: object
+          properties:
+            refund_id:
+              type: string
+              example: ref_56789
+            status:
+              type: string
+              example: pending
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          example: invalid_request
+        message:
+          type: string
+          example: Missing required field
