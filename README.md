@@ -6,7 +6,11 @@ This repository contains the OpenAPI specification for the fictional **MicroLoan
 
 The OpenAPI specification can be found at [`docs/openapi.yaml`](docs/openapi.yaml). An HTML page that loads Swagger UI is provided in [`docs/index.html`](docs/index.html).
 
-### Viewing in a Browser
+### Viewing Online
+
+The documentation is deployed in Vercel and publicly accessible [`here`](https://banking-r19wjogen-panostims-projects.vercel.app/)
+
+### Viewing in a Browser locally
 
 Serve the `docs` folder with any static web server, then open `index.html` in a browser. For example using Python:
 
